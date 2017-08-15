@@ -1,38 +1,38 @@
 var express = require('express')
 var router = express.Router()
-var stars = require('../models/star')
+var planets = require('../models/planet')
 
 router
   .get('/', (req, res, next) => {
-    stars.find(req.query)
-      .then(stars => {
-        res.send(stars)
-      })
-      .catch(next)
-  })
-  .get('/:id/planets', (req, res, next) => {
-    planets.find({starId: req.params.id})
+    planets.find(req.query)
       .then(planets => {
         res.send(planets)
       })
       .catch(next)
   })
+  .get('/:id/moon', (req, res, next) => {
+    moons.find({ planetId: req.params.id })
+      .then(moons => {
+        res.send(moons)
+      })
+      .catch(next)
+  })
   .post('/', (req, res, next) => {
-    stars.create(req.body)
-      .then(star => {
-        res.send(star)
+    planets.create(req.body)
+      .then(planet => {
+        res.send(planet)
       }).catch(next)
   })
   .put('/:id', (req, res, next) => {
     var id = req.params.id
-    stars.findByIdAndUpdate(id, req.body)
-      .then(star => {
+    planets.findByIdAndUpdate(id, req.body)
+      .then(planet => {
         res.send({ message: 'Successfully Updated' })
       }).catch(next)
   })
   .delete('/:id', (req, res, next) => {
-    stars.findByIdAndRemove(req.params.id)
-      .then(star => {
+    planets.findByIdAndRemove(req.params.id)
+      .then(planet => {
         res.send({ message: 'Successfully Removed' })
       }).catch(next)
   })

@@ -11,3 +11,5 @@ var planetSchema = new mongoose.Schema({
 
 
 var Planet = mongoose.model("Planet", planetSchema);
+
+module.exports = Planet;

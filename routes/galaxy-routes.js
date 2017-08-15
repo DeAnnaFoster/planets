@@ -12,6 +12,12 @@ router
       .catch(next)
   })
   // CUSTOM ROUTES
+  .get('/:galaxyId', (req, res, next)=>{
+    galaxies.find({galaxyId: req.params.id})
+      .then(galaxies =>{
+        res.send(galaxies)
+      }).catch(next)
+  })
   .get('/:id/stars', (req, res, next)=>{
     stars.find({galaxyId: req.params.id})
       .then(stars =>{
@@ -23,7 +29,8 @@ router
       .then(stars =>{
         res.send(stars)
       }).catch(next)
-  }) // api/galaxies/329409238/stars
+  }) // api/galaxies/329409238/stars/687685767/planets
+
   .post('/', (req, res, next) => {
     galaxies.create(req.body)
       .then(galaxy =>{

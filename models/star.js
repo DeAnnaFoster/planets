@@ -11,4 +11,4 @@ var starSchema = new mongoose.Schema({
 
 var Star = mongoose.model("Star", starSchema);
 
-module.exports = Star
+module.exports = Star;
