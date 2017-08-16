@@ -10,19 +10,31 @@ router
       })
       .catch(next)
   })
-  .get('/:id/planets', (req, res, next) => {
-    planets.find({starId: req.params.id})
-      .then(planets => {
-        res.send(planets)
+    
+  .get('/:id', (req, res, next) => {
+    stars.findById(req.params.id)
+      .then(star => {
+        res.send(star)
       })
       .catch(next)
   })
+    //wont work.planets are not an array?
+  // .get('/:id/planets', (req, res, next) => {
+  //   planets.find({starId: req.params.id})
+  //     .then(planets => {
+  //       res.send(planets)
+  //     })
+  //     .catch(next)
+  // })
+
+  
   .post('/', (req, res, next) => {
     stars.create(req.body)
       .then(star => {
         res.send(star)
       }).catch(next)
   })
+
   .put('/:id', (req, res, next) => {
     var id = req.params.id
     stars.findByIdAndUpdate(id, req.body)
@@ -30,6 +42,7 @@ router
         res.send({ message: 'Successfully Updated' })
       }).catch(next)
   })
+
   .delete('/:id', (req, res, next) => {
     stars.findByIdAndRemove(req.params.id)
       .then(star => {
