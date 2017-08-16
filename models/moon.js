@@ -7,7 +7,8 @@ var moonSchema = new mongoose.Schema({
   // RELATIONSHIPS
   planetId: {type: ObjectId, ref: 'Planet', required: true},
   starId: {type: ObjectId, ref: 'Star', required: true},
-  galaxyId: {type: ObjectId, ref: 'Galaxy', required: true}
+  galaxyId: {type: ObjectId, ref: 'Galaxy', required: true},
+  creatorId: { type: ObjectId, ref: 'User', required: true }
 })
 
 var Moon = mongoose.model("Moon", moonSchema);

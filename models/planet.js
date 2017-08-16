@@ -6,7 +6,8 @@ var planetSchema = new mongoose.Schema({
 
   // RELATIONSHIPS
   starId: {type: ObjectId, ref: 'Star', required: true},
-  galaxyId: {type: ObjectId, ref: 'Galaxy', required: true}
+  galaxyId: {type: ObjectId, ref: 'Galaxy', required: true},
+  creatorId: { type: ObjectId, ref: 'User', required: true }
 })
 
 

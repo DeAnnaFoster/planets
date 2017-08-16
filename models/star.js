@@ -5,7 +5,8 @@ var starSchema = new mongoose.Schema({
   name: {type: String, required:true},
 
   // RELATIONSHIPS
-  galaxyId: {type: ObjectId, ref: 'Galaxy', required: true}
+  galaxyId: {type: ObjectId, ref: 'Galaxy', required: true},
+  creatorId: { type: ObjectId, ref: 'User', required: true }
 })
 
 

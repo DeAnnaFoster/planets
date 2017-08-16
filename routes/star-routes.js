@@ -2,6 +2,10 @@ var express = require('express')
 var router = express.Router()
 var stars = require('../models/star')
 
+var galaxies = require('../models/galaxy')
+var planets = require('../models/planet')
+var moons = require('../models/moon')
+
 router
   .get('/', (req, res, next) => {
     stars.find(req.query)

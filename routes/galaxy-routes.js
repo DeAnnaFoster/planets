@@ -2,11 +2,16 @@ var express = require('express')
 var router = express.Router()
 var galaxies = require('../models/galaxy')
 var stars = require('../models/star')
+var planets = require('../models/planet')
+var moons = require('../models/moon')
 
 router
   .get('/', (req, res, next) => {
     galaxies.find(req.query)
       .then(galaxies => {
+        // if(req.session.uid == "dfslkj9032jj093rjasflkj"){
+        //   res.send(jakesData)
+        // }
         res.send(galaxies)
       })
       .catch(next)
@@ -25,7 +30,37 @@ router
       .then(stars => {
         res.send(stars)
       }).catch(next)
-  }) // api/galaxies/329409238/stars
+  })
+
+  .get('/:id/stars/:starId', (req, res, next) => {
+    galaxies.findById(req.params.id)
+      .then(star => {
+        res.send(star)
+      }).catch(next)
+  })
+
+  .get('/:id/stars/:starId/planets', (req, res, next) => {
+    planets.find({ starId: req.params.starId })
+      .then(stars => {
+        res.send(stars)
+      }).catch(next)
+  })
+
+
+
+  .get('/:id/stars/:starId/planets/:planetId', (req, res, next) => {
+    planets.findById(req.params.planetId)
+      .then(planet => {
+        res.send(planet)
+      }).catch(next)
+  })
+
+    .get('/:id/stars/:starId/planets/:planetId/moons', (req, res, next) => {
+    moons.find({ planetId: req.params.planetId })
+      .then(planets => {
+        res.send(planets)
+      }).catch(next)
+  })
 
   //grabs all moons under a given galaxyId
   // .get('/:id/moons', (req, res, next) => {
@@ -42,20 +77,8 @@ router
   //       res.send(planets)
   //     }).catch(next)
   // })
-  // .get('/:id/moons', (req, res, next) => {
-  //     moons.find({ galaxyId: req.params.id })
-  //     .then(moons => {
-  //       res.send(moons)
-  //     }).catch(next)
-  // })
 
 
-  // .get('/:id/stars/:starId/planets', (req, res, next)=>{
-  //   planets.find({starId: req.params.starId})
-  //     .then(stars =>{
-  //       res.send(stars)
-  //     }).catch(next)
-  // }) // api/galaxies/329409238/stars/687685767/planets
 
   .post('/', (req, res, next) => {
     galaxies.create(req.body)
@@ -71,7 +94,7 @@ router
         res.send({ message: 'Successfully Updated' })
       }).catch(next)
   })
-    
+
   .delete('/:id', (req, res, next) => {
     galaxies.findByIdAndRemove(req.params.id)
       .then(galaxy => {
