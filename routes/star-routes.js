@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router()
 var stars = require('../models/star')
-
 var galaxies = require('../models/galaxy')
 var planets = require('../models/planet')
 var moons = require('../models/moon')
@@ -22,16 +21,28 @@ router
       })
       .catch(next)
   })
-    //wont work.planets are not an array?
-  // .get('/:id/planets', (req, res, next) => {
-  //   planets.find({starId: req.params.id})
-  //     .then(planets => {
-  //       res.send(planets)
-  //     })
-  //     .catch(next)
-  // })
 
-  
+  .get('/:id/planets', (req, res, next) => {
+    planets.find({ starId: req.params.id })
+      .then(planets => {
+        res.send(planets)
+      }).catch(next)
+  })
+
+  .get('/:id/planets/:planetId', (req, res, next) => {
+    stars.findById(req.params.id)
+      .then(planet => {
+        res.send(planet)
+      }).catch(next)
+  })
+
+  .get('/:id/planets/:planetId/moons', (req, res, next) => {
+    moons.find({ planetId: req.params.planetId })
+      .then(planets => {
+        res.send(planets)
+      }).catch(next)
+  })
+
   .post('/', (req, res, next) => {
     stars.create(req.body)
       .then(star => {

@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router()
 var planets = require('../models/planet')
-
 var galaxies = require('../models/galaxy')
 var stars = require('../models/star')
 var moons = require('../models/moon')
@@ -23,14 +22,27 @@ router
       .catch(next)
   })
 
-  // .get('/:id/moons', (req, res, next) => {
-  //   //moons.find({ planetId: req.params.id })
-  //   moons.findById(req.params.id)
-  //     .then(moons => {
-  //       res.send(moons)
-  //     })
-  //     .catch(next)
-  // })
+
+  .get('/:id/moons', (req, res, next) => {
+    moons.find({ planetId: req.params.id })
+      .then(moon => {
+        res.send(moon)
+      }).catch(next)
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+  //extras
+
 
   //grabs all planets under a given starId
   .get('/:id/stars', (req, res, next) => {
@@ -66,7 +78,7 @@ router
         res.send({ message: 'Successfully Updated' })
       }).catch(next)
   })
-    
+
   .delete('/:id', (req, res, next) => {
     planets.findByIdAndRemove(req.params.id)
       .then(planet => {

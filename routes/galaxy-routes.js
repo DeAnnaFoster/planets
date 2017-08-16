@@ -46,8 +46,6 @@ router
       }).catch(next)
   })
 
-
-
   .get('/:id/stars/:starId/planets/:planetId', (req, res, next) => {
     planets.findById(req.params.planetId)
       .then(planet => {
@@ -55,31 +53,14 @@ router
       }).catch(next)
   })
 
-    .get('/:id/stars/:starId/planets/:planetId/moons', (req, res, next) => {
+  .get('/:id/stars/:starId/planets/:planetId/moons', (req, res, next) => {
     moons.find({ planetId: req.params.planetId })
       .then(planets => {
         res.send(planets)
       }).catch(next)
   })
 
-  //grabs all moons under a given galaxyId
-  // .get('/:id/moons', (req, res, next) => {
-  //   moons.find({ galaxyId: req.params.id })
-  //     .then(moons => {
-  //       res.send(moons)
-  //     })
-  //     .catch(next)
-  // })
-
-  // .get('/:id/planets', (req, res, next) => {
-  //   planets.find({ galaxyId: req.params.id })
-  //     .then(planets => {
-  //       res.send(planets)
-  //     }).catch(next)
-  // })
-
-
-
+  
   .post('/', (req, res, next) => {
     galaxies.create(req.body)
       .then(galaxy => {
